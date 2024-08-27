@@ -1,8 +1,91 @@
-# Reliable LLM: Uncertainty & Confidence and Model Calibration
+# Reliable LLM: Hallucination & Knowledge & Uncertainty
+
+\
+[![Awesome](https://cdn.rawgit.com/sindresorhus/awesome/d7305f38d29fed78fa85652e3a63e154dd8e8829/media/badge.svg)](https://github.com/hee9joon/Awesome-Diffusion-Models) 
+[![Made With Love](https://img.shields.io/badge/Made%20With-Love-red.svg)](https://github.com/chetanraj/awesome-github-badges)
+![License](https://img.shields.io/badge/license-MIT-yellow)
+![github license](https://img.shields.io/github/license/AmourWaltz/Reliable-LLM)
+
+This repository, called **UR2-LLMs** contains a collection of resources and papers on **Uncertainty**, **Reliability** and **Robustness** in **Large Language Models**. 
+
+"*Large language models have limited reliability, limited understanding, limited range, and hence need human supervision*. " - Michael Osborne, Professor of Machine Learning in the Dept. of Engineering Science, University of Oxford, January 25, 2023 
+
+*Welcome to share your papers, thoughts and ideas in this area!* 
 
 The project demonstrates the background and collects research works about LLM uncertainty & confidence and calibration by systematically clustering in various directions and methods for reliable AI development.
 
-## Background & Preliminary
+
+## Contents
+
+- [Reliable LLM: Hallucination \& Knowledge \& Uncertainty](#reliable-llm-hallucination--knowledge--uncertainty)
+  - [Contents](#contents)
+  - [👻 Hallucination](#-hallucination)
+    - [Definition](#definition)
+    - [Causes](#causes)
+    - [Address](#address)
+  - [📓 Knowledge](#-knowledge)
+    - [Related Works of LLM Knowledge](#related-works-of-llm-knowledge)
+      - [Known-Unknown](#known-unknown)
+  - [🔭 Uncertainty](#-uncertainty)
+    - [Model Calibration on Classification Tasks](#model-calibration-on-classification-tasks)
+    - [Confidence \& Uncertainty Estimation Generative Models](#confidence--uncertainty-estimation-generative-models)
+    - [Related Works of Uncertainty \& Confidence \& Calibration](#related-works-of-uncertainty--confidence--calibration)
+      - [Survey \& Investigation](#survey--investigation)
+      - [Uncertainty Quantification](#uncertainty-quantification)
+      - [Linguistic Uncertainty Expressions](#linguistic-uncertainty-expressions)
+      - [Confidence Expressions Improvements](#confidence-expressions-improvements)
+      - [Hallucination Detection by Uncertainty](#hallucination-detection-by-uncertainty)
+      - [Factuality Improvements by Confidence](#factuality-improvements-by-confidence)
+      - [Generative Model Calibration](#generative-model-calibration)
+  - [Future Directions](#future-directions)
+
+
+## 👻 Hallucination
+
+### Definition
+
+The definitions of hallucination vary and depend on specific tasks. This project focuses on hallucination issues in knowledge-intensive tasks (closed-book QA, dialogue, RAG, commonsense reasoning, translation, etc.), where hallucinations refer to the non-factual, incorrect knowledge in generations unfaithful with world knowledge.
+
+### Causes
+
+The causes of hallucinations vary in unfiltered incorrect statements in pertaining data, limited input length of model architecture, maximum likelihood training strategy, and diverse decoding strategies.
+
+<img src="figs/causes.png"  width=60%/>
+
+Architectures and input lengths, pertaining data and strategy of released LLMs are fixed. Tracing incorrect texts in substantial pertaining data is challenging. This project mainly focuses on detecting hallucinations by tracing what LLMs learn in the pertaining stage and mitigating hallucinations in fine-tuning and decoding.
+
+### Address
+
+Comparing open-generation tasks, knowledge-intensive tasks have specific grounding-truth reference - world knowledge. Therefore, we can estimate the knowledge boundary map of an LLM to specify what it knows. It is crucial to ensure the certainty level or honesty of LLMs to a piece of factual knowledge for hallucination detection (from grey area to green area).
+
+## 📓 Knowledge
+
+<img src="figs/boundary.png"  width=60%/>
+
+The above diagram can roughly and simply represent the knowledge boundary. However, in reality, like humans, for much knowledge, we exist in a state of uncertainty, rather than only in a state of knowing or not knowing. 
+Moreover, maximum likelihood prediction in pertaining makes LLMs be prone to generate over-confident responses. Even if the LLM knows a fact, how to make LLMs accurately tell what they know is also important.
+
+This adds complexity to determining the knowledge boundary, which leads to two challenging questions:
+
+1. How to accurately **perceive (Perception)** the knowledge boundary?
+    
+    > (Example: Given a question, such as "What is the capital of France?", the model is required to provide its confidence level for this question.)
+    > 
+2. How to accurately **express (Expression)** knowledge where the boundary is somewhat vague? (Previous work U2Align is a method to enhance expressions. Current interests for the second stage “expression” also lie in “alignment” methods.)
+    
+    > (Example: If the confidence level for answering "Paris" to the above question is 40%, should the model refuse to answer or provide a response in this situation?)
+    >
+
+### Related Works of LLM Knowledge
+
+#### Known-Unknown
+
+| Title | Conference/Journal | Notes |
+| ---- | ---- | ---- |
+| [Knowledge of Knowledge: Exploring Known-Unknowns Uncertainty with Large Language Models](https://arxiv.org/abs/2305.13712) | prePrint | [[Link]()] |
+| [Can AI Assistants Know What They Don’t Know?](https://arxiv.org/abs/2401.13275) | prePrint | [[Link](https://zhuanlan.zhihu.com/p/683994239)] |
+
+## 🔭 Uncertainty
 
 ### Model Calibration on Classification Tasks
 
@@ -21,17 +104,17 @@ Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 - Confidence: Generally associated with both the input and the prediction.
 - The terms uncertainty and confidence are often used interchangeably.
 
-#### Challenges
+<!-- #### Challenges
 
-**Confidence** or **uncertainty** estimation on generative LMs poses greater challenges due to the variable sequence lengths and the inherent difficulty in aligning uncertainty in semantic space.
+**Confidence** or **uncertainty** estimation on generative LMs poses greater challenges due to the variable sequence lengths and the inherent difficulty in aligning uncertainty in semantic space. -->
 
-### Confidence & Uncertainty Estimation Methods on LLMs
+Although the knowledge boundary is important for knowledge-intensive tasks, there are no specific definitions or concepts in previous works. Current methods for estimating knowledge boundaries refer to confidence/uncertainty estimation methods including ① logit-based methods using token-level probabilities; ② prompt-based methods to make LLMs express confidence in words; ③ sampling-based methods to calculate consistency; and ④ training-based methods to learn the ability to express uncertainty. 
 
 <img src="figs/uncertainty.png"  width=75%/>
 
-## Related Works
+### Related Works of Uncertainty & Confidence & Calibration
 
-### Survey & Investigation
+#### Survey & Investigation
 
 | Title | Conference/Journal | Notes |
 | ---- | ---- | ---- |
@@ -40,8 +123,6 @@ Uncalibrated (left), over-confident (mid) and well-calibrated (right) models.
 | [Uncertainty Estimation and Quantification for LLMs: A Simple Supervised Approach](https://arxiv.org/abs/2404.15993) | prePrint | [[Link]()] |
 | [Confidence Under the Hood: An Investigation into the Confidence-Probability Alignment in Large Language Models](https://arxiv.org/abs/2405.16282) | prePrint | [[Link]()] |
 | [Large Language Models Must Be Taught to Know What They Don’t Know](https://arxiv.org/abs/2406.08391) | prePrint | [[Link]()] |
-
-### Confidence & Uncertainty Estimation
 
 #### Uncertainty Quantification
 
@@ -82,8 +163,6 @@ This part of works focus on improving confidence expressions of LLMs in a two-st
 | [R-Tuning: Instructing Large Language Models to Say ‘I Don’t Know’](https://arxiv.org/pdf/2311.09677) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/docs/zhang2024rtuning.html)] |
 
 
-### Confidence & Uncertainty for Hallucination
-
 #### Hallucination Detection by Uncertainty
 
 | Title | Conference/Journal | Notes |
@@ -93,6 +172,8 @@ This part of works focus on improving confidence expressions of LLMs in a two-st
 | [Towards Reliable Misinformation Mitigation: Generalization, Uncertainty, and GPT-4](https://openreview.net/forum?id=cCJGuKJYG8&referrer=%5Bthe%20profile%20of%20Kellin%20Pelrine%5D(%2Fprofile%3Fid%3D~Kellin_Pelrine1)) | EMNLP 2023 | [[Note](https://blog.csdn.net/qq_52053775/article/details/138184326)] |
 | [SelfCheckGPT: Zero-Resource Black-Box Hallucination Detection for Generative Large Language Models](https://openreview.net/forum?id=RwzFNbJ3Ez&referrer=%5Bthe%20profile%20of%20Mark%20Gales%5D(%2Fprofile%3Fid%3D~Mark_Gales1)) | EMNLP 2023 | [[Note](https://blog.csdn.net/qq_52053775/article/details/138184326)] |
 | [Detecting Hallucinations in Large Language Models using Semantic Entropy](https://www.nature.com/articles/s41586-024-07421-0) | Nature | [[Link]()] |
+| [LLM Internal States Reveal Hallucination Risk Faced With a Query](https://arxiv.org/abs/2407.03282) | prePrint | [[Link]()] |
+
 
 #### Factuality Improvements by Confidence
 
@@ -100,11 +181,10 @@ This part of works focus on improving confidence expressions of LLMs in a two-st
 | ---- | ---- | ---- |
 | [Inference-Time Intervention: Eliciting Truthful Answers from a Language Model](https://openreview.net/forum?id=aLLuYpn83y) | NeurIPS 2023 | [[Link](https://zhuanlan.zhihu.com/p/656757564)] |
 | [When to Trust LLMs: Aligning Confidence with Response Quality](https://arxiv.org/abs/2404.17287) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/docs/tao2024when.html)] |
+| [When to Trust LLMs: Aligning Confidence with Response Quality](https://arxiv.org/abs/2404.17287) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/docs/tao2024when.html)] |
 | [Uncertainty Aware Learning for Language Model Alignment](https://arxiv.org/abs/2406.04854) | ACL 2024 | [[Link]()] |
 
-### Model Calibration
-
-#### Generative Tasks
+#### Generative Model Calibration
 
 | Title | Conference/Journal | Notes |
 | ---- | ---- | ---- |
@@ -120,14 +200,6 @@ This part of works focus on improving confidence expressions of LLMs in a two-st
 | [Calibrating Large Language Models with Sample Consistency](https://arxiv.org/abs/2402.13904) | prePrint | [[Link]()] |
 | [Linguistic Calibration of Language Models](https://arxiv.org/abs/2404.00474) | prePrint | [[Link](https://amourwaltz.github.io/Reliable-LLM//pages/docs/band2024linguistic.html)] |
 
-
-
-### Known-Unknown
-
-| Title | Conference/Journal | Notes |
-| ---- | ---- | ---- |
-| [Knowledge of Knowledge: Exploring Known-Unknowns Uncertainty with Large Language Models](https://arxiv.org/abs/2305.13712) | prePrint | [[Link]()] |
-| [Can AI Assistants Know What They Don’t Know?](https://arxiv.org/abs/2401.13275) | prePrint | [[Link](https://zhuanlan.zhihu.com/p/683994239)] |
 
 
 ## Future Directions
