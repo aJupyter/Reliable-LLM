@@ -6,14 +6,9 @@
 ![License](https://img.shields.io/badge/license-MIT-yellow)
 ![github license](https://img.shields.io/github/license/AmourWaltz/Reliable-LLM)
 
-This repository, called **UR2-LLMs** contains a collection of resources and papers on **Uncertainty**, **Reliability** and **Robustness** in **Large Language Models**. 
-
-"*Large language models have limited reliability, limited understanding, limited range, and hence need human supervision*. " - Michael Osborne, Professor of Machine Learning in the Dept. of Engineering Science, University of Oxford, January 25, 2023 
-
-*Welcome to share your papers, thoughts and ideas in this area!* 
-
 The project demonstrates the background and collects research works about LLM uncertainty & confidence and calibration by systematically clustering in various directions and methods for reliable AI development.
 
+*Welcome to participate in this project to share interesting papers, exchange your great ideas!* 
 
 ## Contents
 
